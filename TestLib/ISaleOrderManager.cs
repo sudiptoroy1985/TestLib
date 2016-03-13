@@ -1,10 +1,12 @@
-using System.Collections.Generic;
+using TestLib.Models;
 
-namespace TaxManager.Tests
+namespace TestLib
 {
     public interface ISaleOrderManager
     {
         OrderBase Process(OrderBase order);
+
+        void PrintInvoice(OrderBase order);
 
     }
 }

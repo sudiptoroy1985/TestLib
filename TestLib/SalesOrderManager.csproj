@@ -37,7 +37,17 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISaleOrderManager.cs" />
+    <Compile Include="ITaxCalculator.cs" />
+    <Compile Include="Models\ItemBase.cs" />
+    <Compile Include="Models\OrderBase.cs" />
+    <Compile Include="Models\OrderItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SalesOrderManagerBase.cs" />
+    <Compile Include="TaxCalculator.cs" />
+    <Compile Include="TaxStrategy\ApplyImportDutyTaxForOrderItem.cs" />
+    <Compile Include="TaxStrategy\GetTaxStrategyByOrdertemFactory.cs" />
+    <Compile Include="TaxStrategy\IApplyOrderItemTaxStrategy.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

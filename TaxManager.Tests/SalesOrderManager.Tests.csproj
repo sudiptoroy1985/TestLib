@@ -50,13 +50,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ISaleOrderManager.cs" />
-    <Compile Include="ItemBase.cs" />
-    <Compile Include="OrderItem.cs" />
-    <Compile Include="TaxCalculator.cs" />
-    <Compile Include="SalesOrderManagerBase.cs" />
     <Compile Include="TaxManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestLib\SalesOrderManager.csproj">
+      <Project>{1B612EF7-DD46-4C3B-9BC3-55867FB842DC}</Project>
+      <Name>SalesOrderManager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

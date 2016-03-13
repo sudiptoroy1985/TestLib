@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using System.Security.Cryptography.X509Certificates;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TestLib;
+using TestLib.Models;
 
 namespace TaxManager.Tests
 {
@@ -28,6 +30,41 @@ namespace TaxManager.Tests
            Assert.AreEqual( processedOrders.OrderItems.Count, CreateTestOrder().OrderItems.Count);
         }
 
+
+        [TestMethod]
+        public void AmountOfItemsUnchangedAfterTaxProcessingIfExempted()
+        {
+            var processedOrders = _saleOrderManager.Process(CreateTestOrder());
+
+            Assert.AreEqual(processedOrders.OrderItems.Count, CreateTestOrder().OrderItems.Count);
+        }
+
+        [TestMethod]
+        public void OneImportedItemCorrectTaxApplied()
+        {
+            var processedOrders = _saleOrderManager.Process(CreateOrderWithOneImportedItem());
+
+            Assert.IsTrue(processedOrders.OrderItems[0].ItemInOrder.Amount == (decimal) 24.99);
+        }
+
+        private OrderBase CreateOrderWithOneImportedItem()
+        {
+            var order = new OrderBase { OrderItems = new List<OrderItem>() };
+
+            order.OrderItems.Add(new OrderItem
+            {
+                ItemInOrder = new ItemBase()
+                {
+                    Name = "Book",
+                    Amount = (decimal)23.8,
+                    IsImported = true
+                },
+                Amount = 2
+            });
+
+            return order;
+        }
+
         private static OrderBase CreateTestOrder()
         {
             var order = new OrderBase {OrderItems = new List<OrderItem>()};
@@ -38,6 +75,7 @@ namespace TaxManager.Tests
                 {
                     Name = "Book",
                     Amount = (decimal) 23.8,
+                    IsExemptOffAllTaxes = true
                 },
                 Amount = 2
             });
@@ -48,6 +86,7 @@ namespace TaxManager.Tests
                 {
                     Name = "Wine",
                     Amount = (decimal) 12.8,
+                    IsExemptOffAllTaxes = true
                 },
                 Amount = 6
             });

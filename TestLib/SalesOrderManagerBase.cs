@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
+using TestLib.Models;
 
-namespace TaxManager.Tests
+namespace TestLib
 {
     public class SalesOrderManagerBase : ISaleOrderManager
     {
@@ -14,7 +13,12 @@ namespace TaxManager.Tests
 
         public OrderBase Process(OrderBase order)
         {
-            return _orderTaxCalculator.SetStrategyForOrders(order);
+            return _orderTaxCalculator.SetTaxForOrders(order);
+        }
+
+        public void PrintInvoice(OrderBase order)
+        {
+            
         }
     }
 }

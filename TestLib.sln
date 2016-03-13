@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxManager", "TestLib\TaxManager.csproj", "{1B612EF7-DD46-4C3B-9BC3-55867FB842DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesOrderManager", "TestLib\SalesOrderManager.csproj", "{1B612EF7-DD46-4C3B-9BC3-55867FB842DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxManager.Tests", "TaxManager.Tests\TaxManager.Tests.csproj", "{B557F660-53D6-42AA-94C4-391B2D2CF35B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalesOrderManager.Tests", "TaxManager.Tests\SalesOrderManager.Tests.csproj", "{B557F660-53D6-42AA-94C4-391B2D2CF35B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
