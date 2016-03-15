@@ -8,11 +8,6 @@ namespace TestLib
     {
         private  int _cumulativeTaxForItem;
 
-        public void SetTax(int cumulativeTax)
-        {
-            _cumulativeTaxForItem = cumulativeTax;
-        }
-
         public void ApplyTax(ItemBase item)
         {
             item.Amount = ApplyRounding(item.Amount * _cumulativeTaxForItem / 100 + item.Amount);
