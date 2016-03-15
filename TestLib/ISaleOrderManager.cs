@@ -5,7 +5,7 @@ namespace TestLib
     public interface ISaleOrderManager
     {
         OrderBase ProcessOrders(OrderBase order);
-        void PrintInvoice(OrderBase order);
+        string GenerateInvoice(OrderBase order);
 
     }
 }

@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TestLib.Models;
-using TestLib.TaxStrategy;
+
 
 namespace TestLib
 {
@@ -31,11 +31,21 @@ namespace TestLib
             return order;
         }
 
-        private static int SetCompositeApplicableTax(ItemBase item)
+        public bool IsItemNonExemptFromBasicSalesTax(ItemBase item)
+        {
+            if (item.ItemType == ItemType.Default)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        private int SetCompositeApplicableTax(ItemBase item)
         {
             var compositeApplicableTaxList = 0;
 
-            if (!item.IsExemptedFromSalesTax)
+            if (IsItemNonExemptFromBasicSalesTax(item))
             {
                 compositeApplicableTaxList += 10;
             }

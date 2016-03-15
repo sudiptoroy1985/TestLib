@@ -5,5 +5,7 @@ namespace TestLib
     public interface ITaxCalculator
     {
         OrderBase CalculateTaxForOrders(OrderBase order);
+
+        bool IsItemNonExemptFromBasicSalesTax(ItemBase item);
     }
 }

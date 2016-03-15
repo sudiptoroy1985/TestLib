@@ -1,8 +1,7 @@
 using System;
-using System.Collections.Generic;
 using TestLib.Models;
 
-namespace TestLib.TaxStrategy
+namespace TestLib
 {
     public class TaxManager : ITaxManager
     {
@@ -15,16 +14,12 @@ namespace TestLib.TaxStrategy
 
         public void ApplyTax(ItemBase item)
         {
-           var unRoundedAmount = item.Amount * _cumulativeTax / 100 + item.Amount;
-
-            item.Amount = ApplyRounding(unRoundedAmount);
+            item.Amount = ApplyRounding(item.Amount * _cumulativeTax / 100 + item.Amount);
         }
 
         public decimal ApplyRounding(decimal taxedAmount)
         {
-            var w =  Math.Round(taxedAmount * 20 , 1);
-
-            return w/20;
+            return Math.Round(taxedAmount * 20, 1)/ 20;
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using TestLib.Models;
 
 namespace TestLib
@@ -16,9 +17,17 @@ namespace TestLib
             return _orderTaxCalculator.CalculateTaxForOrders(order);
         }
 
-        public void PrintInvoice(OrderBase order)
+        public string GenerateInvoice(OrderBase order)
         {
-            
+            if (order.OrderItems.Any())
+            {
+                foreach (var ord in order.OrderItems)
+                {
+                    
+                }
+            }
+
+            return string.Empty;
         }
     }
 }
