@@ -25,7 +25,7 @@ namespace TaxManager.Tests
         [TestMethod]
         public void NumberOfItemsInOrderRemainsSameAfterTaxProcessing()
         {
-            var processedOrders = _saleOrderManager.Process(CreateTestOrder());
+            var processedOrders = _saleOrderManager.ProcessOrders(CreateTestOrder());
 
            Assert.AreEqual( processedOrders.OrderItems.Count, CreateTestOrder().OrderItems.Count);
         }
@@ -34,20 +34,29 @@ namespace TaxManager.Tests
         [TestMethod]
         public void AmountOfItemsUnchangedAfterTaxProcessingIfExempted()
         {
-            var processedOrders = _saleOrderManager.Process(CreateTestOrder());
+            var processedOrders = _saleOrderManager.ProcessOrders(CreateTestOrder());
 
             Assert.AreEqual(processedOrders.OrderItems.Count, CreateTestOrder().OrderItems.Count);
         }
 
         [TestMethod]
-        public void OneImportedItemCorrectTaxApplied()
+        public void OneImportedItemExemptedFromSalesTaxCorrectTaxApplied()
         {
-            var processedOrders = _saleOrderManager.Process(CreateOrderWithOneImportedItem());
+            var processedOrders = _saleOrderManager.ProcessOrders(CreateOrderWithOneImportedItemExemptedFromSalesTax());
 
             Assert.IsTrue(processedOrders.OrderItems[0].ItemInOrder.Amount == (decimal) 24.99);
         }
 
-        private OrderBase CreateOrderWithOneImportedItem()
+
+        [TestMethod]
+        public void OneImportedItemNonExemptedFromSalesTaxCorrectTaxApplied()
+        {
+            var processedOrders = _saleOrderManager.ProcessOrders(CreateOrderWithOneImportedItemNonExemptedFromSalesTax());
+
+            Assert.IsTrue(processedOrders.OrderItems[0].ItemInOrder.Amount == (decimal)32.19);
+        }
+
+        private OrderBase CreateOrderWithOneExemptedImportedItem()
         {
             var order = new OrderBase { OrderItems = new List<OrderItem>() };
 
@@ -57,7 +66,45 @@ namespace TaxManager.Tests
                 {
                     Name = "Book",
                     Amount = (decimal)23.8,
-                    IsImported = true
+                    IsImported = true,
+                },
+                Amount = 2
+            });
+
+            return order;
+        }
+
+        private OrderBase CreateOrderWithOneImportedItemExemptedFromSalesTax()
+        {
+            var order = new OrderBase { OrderItems = new List<OrderItem>() };
+
+            order.OrderItems.Add(new OrderItem
+            {
+                ItemInOrder = new ItemBase()
+                {
+                    Name = "Book",
+                    Amount = (decimal)23.8,
+                    IsImported = true,
+                    ItemType = ItemType.Books
+                },
+                Amount = 2
+            });
+
+            return order;
+        }
+
+        private OrderBase CreateOrderWithOneImportedItemNonExemptedFromSalesTax()
+        {
+            var order = new OrderBase { OrderItems = new List<OrderItem>() };
+
+            order.OrderItems.Add(new OrderItem
+            {
+                ItemInOrder = new ItemBase()
+                {
+                    Name = "Book",
+                    Amount = (decimal)27.99,
+                    IsImported = true,
+                  
                 },
                 Amount = 2
             });
@@ -74,8 +121,7 @@ namespace TaxManager.Tests
                 ItemInOrder = new ItemBase()
                 {
                     Name = "Book",
-                    Amount = (decimal) 23.8,
-                    IsExemptOffAllTaxes = true
+                    Amount = (decimal) 23.8
                 },
                 Amount = 2
             });
@@ -85,8 +131,33 @@ namespace TaxManager.Tests
                 ItemInOrder = new ItemBase()
                 {
                     Name = "Wine",
-                    Amount = (decimal) 12.8,
-                    IsExemptOffAllTaxes = true
+                    Amount = (decimal) 12.8
+                },
+                Amount = 6
+            });
+            return order;
+        }
+
+        private static OrderBase CreateTestOrderScenario()
+        {
+            var order = new OrderBase { OrderItems = new List<OrderItem>() };
+
+            order.OrderItems.Add(new OrderItem
+            {
+                ItemInOrder = new ItemBase()
+                {
+                    Name = "Book",
+                    Amount = (decimal)23.8
+                },
+                Amount = 2
+            });
+
+            order.OrderItems.Add(new OrderItem
+            {
+                ItemInOrder = new ItemBase()
+                {
+                    Name = "Wine",
+                    Amount = (decimal)12.8
                 },
                 Amount = 6
             });
