@@ -5,16 +5,16 @@ namespace TestLib
 {
     public class SalesOrderManagerBase : ISaleOrderManager
     {
-        private readonly ITaxCalculator _orderTaxCalculator;
+        private readonly ITaxManager _orderTaxManager;
 
-        public SalesOrderManagerBase(ITaxCalculator orderTaxCalculator)
+        public SalesOrderManagerBase(ITaxManager orderTaxManager)
         {
-            _orderTaxCalculator = orderTaxCalculator;
+            _orderTaxManager = orderTaxManager;
         }
 
         public OrderBase ProcessOrders(OrderBase order)
         {
-            return _orderTaxCalculator.CalculateTaxForOrders(order);
+            return _orderTaxManager.CalculateTaxForOrders(order);
         }
 
         public string GenerateInvoice(OrderBase order)

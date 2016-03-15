@@ -12,12 +12,12 @@ namespace TaxManager.Tests
     {
         private ISaleOrderManager _saleOrderManager;
 
-        private  ITaxCalculator _taxCalculator;
+        private  ITaxManager _taxCalculator;
 
         [TestInitializeAttribute]
         public void Setup()
         {
-            _taxCalculator = new TaxCalculator();
+            _taxCalculator = new TestLib.TaxManager();
 
             _saleOrderManager = new SalesOrderManagerBase(_taxCalculator);
         }

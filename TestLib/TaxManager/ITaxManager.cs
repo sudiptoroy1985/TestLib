@@ -4,9 +4,11 @@ namespace TestLib
 {
     public interface ITaxManager
     {
-        void SetTax(int cumulativeTax);
         void ApplyTax(ItemBase item);
         decimal ApplyRounding(decimal taxedAmount);
+        bool IsItemNonExemptFromBasicSalesTax(ItemBase item);
+        void SetTax(ItemBase item);
+        OrderBase CalculateTaxForOrders(OrderBase order);
 
     }
-}
+}   
