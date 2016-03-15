@@ -45,9 +45,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SalesOrderManagerBase.cs" />
     <Compile Include="TaxCalculator.cs" />
-    <Compile Include="TaxStrategy\ApplyImportDutyTaxForOrderItem.cs" />
-    <Compile Include="TaxStrategy\GetTaxStrategyByOrdertemFactory.cs" />
-    <Compile Include="TaxStrategy\IApplyOrderItemTaxStrategy.cs" />
+    <Compile Include="TaxStrategy\SetOrderItemTax.cs" />
+    <Compile Include="TaxStrategy\ISetOrderItemTax.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

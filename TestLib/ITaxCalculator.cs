@@ -4,6 +4,6 @@ namespace TestLib
 {
     public interface ITaxCalculator
     {
-        OrderBase SetTaxForOrders(OrderBase order);
+        OrderBase CalculateTaxForOrders(OrderBase order);
     }
 }

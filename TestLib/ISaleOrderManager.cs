@@ -4,8 +4,7 @@ namespace TestLib
 {
     public interface ISaleOrderManager
     {
-        OrderBase Process(OrderBase order);
-
+        OrderBase ProcessOrders(OrderBase order);
         void PrintInvoice(OrderBase order);
 
     }

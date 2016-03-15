@@ -11,9 +11,9 @@ namespace TestLib
             _orderTaxCalculator = orderTaxCalculator;
         }
 
-        public OrderBase Process(OrderBase order)
+        public OrderBase ProcessOrders(OrderBase order)
         {
-            return _orderTaxCalculator.SetTaxForOrders(order);
+            return _orderTaxCalculator.CalculateTaxForOrders(order);
         }
 
         public void PrintInvoice(OrderBase order)
