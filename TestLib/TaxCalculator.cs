@@ -11,56 +11,43 @@ namespace TestLib
 {
     public class TaxCalculator : ITaxCalculator
     {
+        private readonly ITaxManager _taxManager;
+
+        public TaxCalculator()
+        {
+            _taxManager = new TaxManager();   
+        }
         public OrderBase CalculateTaxForOrders(OrderBase order)
         {
-            if (order.OrderItems.Any())
+            if (!order.OrderItems.Any()) return order;
+
+            foreach (var item in order.OrderItems.Select(orderItem => orderItem.ItemInOrder))
             {
-                foreach (var orderItem in order.OrderItems)
-                {
-                    var item = orderItem.ItemInOrder;
+                _taxManager.SetTax(SetCompositeApplicableTax(item));
 
-                    var strategy = new ApplyOrderItemTax();
-
-                    var compositeApplicableTaxList = SetCompositeApplicableTax(item);
-
-                    strategy.ApplyTax(item, compositeApplicableTaxList);
-
-                }
-
-                return order;
+                _taxManager.ApplyTax(item);
             }
 
             return order;
         }
 
-        private List<Action<ItemBase>> SetCompositeApplicableTax(ItemBase item)
+        private static int SetCompositeApplicableTax(ItemBase item)
         {
-            var compositeApplicableTaxList = new List<Action<ItemBase>>();
-
-            if (item.IsImported)
-            {
-                compositeApplicableTaxList.Add(SetImportTax);
-            }
+            var compositeApplicableTaxList = 0;
 
             if (!item.IsExemptedFromSalesTax)
             {
-                compositeApplicableTaxList.Add(SetSalesTax);
+                compositeApplicableTaxList += 10;
             }
 
+            if (item.IsImported)
+            {
+                compositeApplicableTaxList += 5;
+            }
 
             return compositeApplicableTaxList;
         }
 
-        public void SetImportTax(ItemBase item)
-        {
-            item.Amount = ((item.Amount * 5) / 100) + item.Amount;
-        }
-
-
-        public void SetSalesTax(ItemBase item)
-        {
-            item.Amount = ((item.Amount * 10) / 100) + item.Amount;
-        }
 
     }
 
